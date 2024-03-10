@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ch-ZN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>打字机</title>
+		<!--采用flex布局-->
+		<style>
+			html,
+			body {
+				height: 100%;
+				color: #fff;
+				background: #414555;
+				font-size: 30px;
+				font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman',
+					serif;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+		</style>
+		<script>
+			//str填充内容，利用<作为换行符
+			let textStr =
+				'The principleof firstness refers to the method of returning to the most basic conditions of a thing, /  breaking it down into its elements for deconstruction and analysis,  /  so as to find the optimal path to achieve the goal.';
+			let strp = '';
+			let i = 0;
+
+			// 实现自动打字效果
+			function print1() {
+				if (textStr[i] != '/') {
+					strp += textStr[i];
+					document.getElementById('box1').innerHTML = strp + '|';
+				} else {
+					document.getElementById('box1').innerHTML =
+						strp + '<br><br>' + '|';
+					strp += '<br><br>';
+				}
+				i++;
+			}
+
+			// print2是最后的光标闪动效果
+			function print2() {
+				setTimeout(() => {
+					document.getElementById('box1').innerHTML = strp + ' ';
+				}, 100);
+				setTimeout(() => {
+					document.getElementById('box1').innerHTML = strp + '|';
+				}, 600);
+			}
+
+			// setInterval函数控制打字速度
+			let printid = setInterval(() => {
+				print1();
+				if (i == textStr.length) clearInterval(printid);
+			}, 90);
+
+			// 利用光标闪动速度，默认模拟电脑正常光标闪动
+			setTimeout(() => {
+				id = setInterval(print2, 1060); //注意setInterval内部直接写函数的时候是直接写函数名不加括号的。
+			}, (textStr.length - 1) * 90);
+		</script>
+	</head>
+	<body>
+		<div class="boxtype">
+			<div id="box1"></div>
+		</div>
+	</body>
+</html>
